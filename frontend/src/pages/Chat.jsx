@@ -4,10 +4,10 @@ import ChatBox from "../components/ChatBox";
 
 const Chat = () => {
   return (
-    <div className="flex min-h-screen flex-col overflow-x-hidden bg-[#f7f8fa] lg:flex-row">
+    <div className="min-h-screen bg-[#f7f8fa]">
       <Sidebar />
 
-      <div className="min-w-0 flex-1">
+      <div className="min-h-screen lg:ml-64">
         <Header />
 
         <main className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
