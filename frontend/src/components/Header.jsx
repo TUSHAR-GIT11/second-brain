@@ -11,23 +11,41 @@ const Header = () => {
   };
 
   return (
-    <header className="border-b border-slate-200 bg-white">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-        <div>
-          <h1 className="text-xl font-bold tracking-tight text-slate-900">
-            Second Brain
-          </h1>
-          <p className="text-xs text-slate-500">
-            Your AI-powered knowledge base
-          </p>
+    <header className="sticky top-0 z-30 hidden border-b border-slate-200/80 bg-white/90 backdrop-blur lg:block">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        {/* Brand */}
+        <div className="flex items-center gap-3">
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-slate-950 text-sm font-bold text-white shadow-sm">
+            S
+          </div>
+
+          <div>
+            <h1 className="text-sm font-bold tracking-tight text-slate-900">
+              Second Brain
+            </h1>
+
+            <p className="hidden text-[11px] text-slate-400 sm:block">
+              AI-powered knowledge base
+            </p>
+          </div>
         </div>
 
-        <button
-          onClick={handleLogout}
-          className="rounded-lg border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50"
-        >
-          Logout
-        </button>
+        {/* Right */}
+        <div className="flex items-center gap-3">
+          <div className="hidden items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 sm:flex">
+            <span className="h-2 w-2 rounded-full bg-emerald-500" />
+            <span className="text-xs font-medium text-slate-600">
+              AI Ready
+            </span>
+          </div>
+
+          <button
+            onClick={handleLogout}
+            className="rounded-lg border border-slate-200 bg-white px-3.5 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-300 hover:bg-slate-50 hover:text-slate-900"
+          >
+            Logout
+          </button>
+        </div>
       </div>
     </header>
   );

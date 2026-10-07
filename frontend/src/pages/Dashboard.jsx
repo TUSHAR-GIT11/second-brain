@@ -1,18 +1,14 @@
 import { useEffect, useState } from "react";
 import Header from "../components/Header";
-import NoteCard from "../components/NoteCard";
-import NoteForm from "../components/NoteForm";
-import ChatBox from "../components/ChatBox";
+import Sidebar from "../components/Sidebar";
 import {
   getNotes,
-  deleteNote,
 } from "../services/noteService";
 
 const Dashboard = () => {
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [editingNote, setEditingNote] = useState(null);
 
   const loadNotes = async () => {
     try {
@@ -23,7 +19,7 @@ const Dashboard = () => {
     } catch (error) {
       setError(
         error.response?.data?.message ||
-          "Failed to load notes."
+          "Failed to load your knowledge."
       );
     } finally {
       setLoading(false);
@@ -34,147 +30,226 @@ const Dashboard = () => {
     loadNotes();
   }, []);
 
-  const handleNoteCreated = (newNote) => {
-    setNotes((currentNotes) => [
-      newNote,
-      ...currentNotes,
-    ]);
-  };
-
-  const handleEdit = (note) => {
-    setEditingNote(note);
-  };
-
-  const handleNoteUpdated = (updatedNote) => {
-    setNotes((currentNotes) =>
-      currentNotes.map((note) =>
-        note._id === updatedNote._id
-          ? updatedNote
-          : note
-      )
-    );
-
-    setEditingNote(null);
-  };
-
-  const handleCancelEdit = () => {
-    setEditingNote(null);
-  };
-
-  const handleDelete = async (noteId) => {
-    try {
-      await deleteNote(noteId);
-
-      setNotes((currentNotes) =>
-        currentNotes.filter(
-          (note) => note._id !== noteId
-        )
-      );
-    } catch (error) {
-      setError(
-        error.response?.data?.message ||
-          "Failed to delete note."
-      );
-    }
-  };
+  const recentNotes = notes.slice(0, 4);
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      <Header />
+    <div className="flex min-h-screen flex-col bg-[#f7f8fa] lg:flex-row">
+      <Sidebar />
 
-      <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        {/* Page Header */}
-        <div className="mb-8">
-          <h2 className="text-3xl font-bold tracking-tight text-slate-900">
-            Your Knowledge Base
-          </h2>
+      <div className="min-w-0 flex-1">
+        <Header />
 
-          <p className="mt-2 text-sm text-slate-500">
-            Save knowledge, organize your thoughts, and ask
-            your AI-powered knowledge base questions.
-          </p>
-        </div>
+        <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+          {/* Header */}
+          <section className="mb-8">
+            <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">
+              Overview
+            </p>
 
-        {error && (
-          <div className="mb-6 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-            {error}
-          </div>
-        )}
+            <h1 className="mt-1 text-3xl font-bold tracking-tight text-slate-900">
+              Your Second Brain
+            </h1>
 
-        {/* Knowledge + Form */}
-        <div className="grid gap-6 lg:grid-cols-3">
-          {/* Knowledge */}
-          <section className="lg:col-span-2">
-            <div className="mb-4 flex items-center justify-between">
-              <div>
-                <h3 className="text-lg font-semibold text-slate-900">
-                  My Knowledge
-                </h3>
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500">
+              A personal knowledge base powered by retrieval
+              augmented generation.
+            </p>
+          </section>
 
-                <p className="text-sm text-slate-500">
-                  {notes.length}{" "}
-                  {notes.length === 1
-                    ? "knowledge item"
-                    : "knowledge items"}
-                </p>
+          {error && (
+            <div className="mb-6 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+              {error}
+            </div>
+          )}
+
+          {/* Stats */}
+          <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+              <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+                Knowledge items
+              </p>
+
+              <p className="mt-3 text-3xl font-bold tracking-tight text-slate-900">
+                {loading ? "—" : notes.length}
+              </p>
+
+              <p className="mt-1 text-sm text-slate-500">
+                Saved notes and sources
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+              <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+                Knowledge sources
+              </p>
+
+              <p className="mt-3 text-3xl font-bold tracking-tight text-slate-900">
+                {loading
+                  ? "—"
+                  : notes.filter(
+                      (note) => note.sourceType === "url"
+                    ).length}
+              </p>
+
+              <p className="mt-1 text-sm text-slate-500">
+                Public URLs ingested
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+              <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+                RAG status
+              </p>
+
+              <div className="mt-3 flex items-center gap-2">
+                <span className="h-2.5 w-2.5 rounded-full bg-emerald-500" />
+
+                <span className="text-2xl font-bold tracking-tight text-slate-900">
+                  Ready
+                </span>
               </div>
+
+              <p className="mt-1 text-sm text-slate-500">
+                Retrieval system available
+              </p>
+            </div>
+          </section>
+
+          {/* Recent Knowledge */}
+          <section className="mt-8">
+            <div className="mb-5 flex items-end justify-between">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">
+                  Recent
+                </p>
+
+                <h2 className="mt-1 text-xl font-bold tracking-tight text-slate-900">
+                  Recent knowledge
+                </h2>
+              </div>
+
+              <a
+                href="/knowledge"
+                className="text-sm font-medium text-slate-600 transition hover:text-slate-900"
+              >
+                View all →
+              </a>
             </div>
 
             {loading && (
-              <div className="rounded-xl border border-slate-200 bg-white p-8 text-center shadow-sm">
-                <div className="mx-auto mb-3 h-6 w-6 animate-spin rounded-full border-2 border-slate-200 border-t-slate-700" />
-
-                <p className="text-sm text-slate-500">
-                  Loading your knowledge...
-                </p>
-              </div>
-            )}
-
-            {!loading && notes.length === 0 && (
-              <div className="rounded-xl border border-dashed border-slate-300 bg-white p-10 text-center">
-                <h4 className="font-semibold text-slate-900">
-                  No knowledge yet
-                </h4>
-
-                <p className="mt-2 text-sm text-slate-500">
-                  Add your first note or public URL to start
-                  building your knowledge base.
-                </p>
-              </div>
-            )}
-
-            {!loading && notes.length > 0 && (
-              <div className="grid gap-4 sm:grid-cols-2">
-                {notes.map((note) => (
-                  <NoteCard
-                    key={note._id}
-                    note={note}
-                    onEdit={handleEdit}
-                    onDelete={handleDelete}
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                {[1, 2, 3, 4].map((item) => (
+                  <div
+                    key={item}
+                    className="h-40 animate-pulse rounded-2xl border border-slate-200 bg-white"
                   />
+                ))}
+              </div>
+            )}
+
+            {!loading && recentNotes.length === 0 && (
+              <div className="rounded-2xl border border-dashed border-slate-300 bg-white px-6 py-14 text-center">
+                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-slate-100 text-lg">
+                  ✦
+                </div>
+
+                <h3 className="mt-4 font-semibold text-slate-900">
+                  No knowledge yet
+                </h3>
+
+                <p className="mx-auto mt-2 max-w-sm text-sm text-slate-500">
+                  Add your first note or public URL from the
+                  Knowledge section.
+                </p>
+
+                <a
+                  href="/knowledge"
+                  className="mt-5 inline-flex rounded-lg bg-slate-950 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-slate-800"
+                >
+                  Add knowledge
+                </a>
+              </div>
+            )}
+
+            {!loading && recentNotes.length > 0 && (
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                {recentNotes.map((note) => (
+                  <div
+                    key={note._id}
+                    className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
+                  >
+                    <div className="flex items-center justify-between gap-3">
+                      <span className="rounded-full bg-slate-100 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-slate-600">
+                        {note.sourceType === "url"
+                          ? "Public URL"
+                          : "Text Note"}
+                      </span>
+
+                      <span className="text-slate-300">
+                        •••
+                      </span>
+                    </div>
+
+                    <h3 className="mt-4 truncate text-sm font-semibold text-slate-900">
+                      {note.title}
+                    </h3>
+
+                    <p className="mt-2 line-clamp-3 text-xs leading-5 text-slate-500">
+                      {note.content}
+                    </p>
+                  </div>
                 ))}
               </div>
             )}
           </section>
 
-          {/* Add/Edit Knowledge */}
-          <section>
-            <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-              <NoteForm
-                onNoteCreated={handleNoteCreated}
-                editingNote={editingNote}
-                onNoteUpdated={handleNoteUpdated}
-                onCancelEdit={handleCancelEdit}
-              />
-            </div>
-          </section>
-        </div>
+          {/* Quick Actions */}
+          <section className="mt-8 grid gap-4 sm:grid-cols-2">
+            <a
+              href="/knowledge"
+              className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-slate-300 hover:shadow-md"
+            >
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-700">
+                +
+              </div>
 
-        {/* Chat */}
-        <section className="mt-8">
-          <ChatBox />
-        </section>
-      </main>
+              <h3 className="mt-4 text-sm font-semibold text-slate-900">
+                Add knowledge
+              </h3>
+
+              <p className="mt-1 text-sm leading-5 text-slate-500">
+                Save a text note or ingest a public URL.
+              </p>
+
+              <span className="mt-4 block text-xs font-semibold text-slate-600 group-hover:text-slate-900">
+                Open Knowledge →
+              </span>
+            </a>
+
+            <a
+              href="/chat"
+              className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-slate-300 hover:shadow-md"
+            >
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-950 text-white">
+                ✦
+              </div>
+
+              <h3 className="mt-4 text-sm font-semibold text-slate-900">
+                Ask your Second Brain
+              </h3>
+
+              <p className="mt-1 text-sm leading-5 text-slate-500">
+                Ask questions and retrieve information from
+                your saved knowledge.
+              </p>
+
+              <span className="mt-4 block text-xs font-semibold text-slate-600 group-hover:text-slate-900">
+                Open AI Chat →
+              </span>
+            </a>
+          </section>
+        </main>
+      </div>
     </div>
   );
 };
