@@ -31,10 +31,10 @@ const Dashboard = () => {
   const recentNotes = notes.slice(0, 4);
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#f7f8fa] lg:flex-row">
-  <Sidebar />
+    <div className="flex min-h-screen flex-col bg-[#f7f8fa] dark:bg-slate-950 lg:flex-row">
+      <Sidebar />
 
-  <div className="min-w-0 flex-1">
+      <div className="min-w-0 flex-1">
         <Header />
 
         <main className="mx-auto w-full min-w-0 max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
@@ -44,11 +44,11 @@ const Dashboard = () => {
               Overview
             </p>
 
-            <h1 className="mt-1 text-3xl font-bold tracking-tight text-slate-900">
+            <h1 className="mt-1 text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
               Your Second Brain
             </h1>
 
-            <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500">
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500 dark:text-slate-400">
               A personal knowledge base powered by retrieval
               augmented generation.
             </p>
@@ -56,33 +56,33 @@ const Dashboard = () => {
 
           {/* Error */}
           {error && (
-            <div className="mb-6 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+            <div className="mb-6 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 dark:border-red-900/50 dark:bg-red-950/40 dark:text-red-300">
               {error}
             </div>
           )}
 
           {/* Stats */}
           <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
               <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
                 Knowledge items
               </p>
 
-              <p className="mt-3 text-3xl font-bold tracking-tight text-slate-900">
+              <p className="mt-3 text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
                 {loading ? "—" : notes.length}
               </p>
 
-              <p className="mt-1 text-sm text-slate-500">
+              <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
                 Saved notes and sources
               </p>
             </div>
 
-            <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
               <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
                 Knowledge sources
               </p>
 
-              <p className="mt-3 text-3xl font-bold tracking-tight text-slate-900">
+              <p className="mt-3 text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
                 {loading
                   ? "—"
                   : notes.filter(
@@ -90,12 +90,12 @@ const Dashboard = () => {
                     ).length}
               </p>
 
-              <p className="mt-1 text-sm text-slate-500">
+              <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
                 Public URLs ingested
               </p>
             </div>
 
-            <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
               <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
                 RAG status
               </p>
@@ -103,12 +103,12 @@ const Dashboard = () => {
               <div className="mt-3 flex items-center gap-2">
                 <span className="h-2.5 w-2.5 rounded-full bg-emerald-500" />
 
-                <span className="text-2xl font-bold tracking-tight text-slate-900">
+                <span className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
                   Ready
                 </span>
               </div>
 
-              <p className="mt-1 text-sm text-slate-500">
+              <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
                 Retrieval system available
               </p>
             </div>
@@ -122,14 +122,14 @@ const Dashboard = () => {
                   Recent
                 </p>
 
-                <h2 className="mt-1 text-xl font-bold tracking-tight text-slate-900">
+                <h2 className="mt-1 text-xl font-bold tracking-tight text-slate-900 dark:text-white">
                   Recent knowledge
                 </h2>
               </div>
 
               <a
                 href="/knowledge"
-                className="shrink-0 text-sm font-medium text-slate-600 transition hover:text-slate-900"
+                className="shrink-0 text-sm font-medium text-slate-600 transition hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
               >
                 View all →
               </a>
@@ -141,7 +141,7 @@ const Dashboard = () => {
                 {[1, 2, 3, 4].map((item) => (
                   <div
                     key={item}
-                    className="h-40 animate-pulse rounded-2xl border border-slate-200 bg-white"
+                    className="h-40 animate-pulse rounded-2xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900"
                   />
                 ))}
               </div>
@@ -149,16 +149,16 @@ const Dashboard = () => {
 
             {/* Empty State */}
             {!loading && recentNotes.length === 0 && (
-              <div className="rounded-2xl border border-dashed border-slate-300 bg-white px-6 py-14 text-center">
-                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-slate-100 text-lg">
+              <div className="rounded-2xl border border-dashed border-slate-300 bg-white px-6 py-14 text-center dark:border-slate-700 dark:bg-slate-900">
+                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-slate-100 text-lg dark:bg-slate-800">
                   ✦
                 </div>
 
-                <h3 className="mt-4 font-semibold text-slate-900">
+                <h3 className="mt-4 font-semibold text-slate-900 dark:text-white">
                   No knowledge yet
                 </h3>
 
-                <p className="mx-auto mt-2 max-w-sm text-sm text-slate-500">
+                <p className="mx-auto mt-2 max-w-sm text-sm text-slate-500 dark:text-slate-400">
                   Add your first note or public URL from the
                   Knowledge section.
                 </p>
@@ -178,25 +178,25 @@ const Dashboard = () => {
                 {recentNotes.map((note) => (
                   <div
                     key={note._id}
-                    className="min-w-0 overflow-hidden rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
+                    className="min-w-0 overflow-hidden rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900"
                   >
                     <div className="flex min-w-0 items-center justify-between gap-3">
-                      <span className="min-w-0 truncate rounded-full bg-slate-100 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-slate-600">
+                      <span className="min-w-0 truncate rounded-full bg-slate-100 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-slate-600 dark:bg-slate-800 dark:text-slate-300">
                         {note.sourceType === "url"
                           ? "Public URL"
                           : "Text Note"}
                       </span>
 
-                      <span className="shrink-0 text-slate-300">
+                      <span className="shrink-0 text-slate-300 dark:text-slate-600">
                         •••
                       </span>
                     </div>
 
-                    <h3 className="mt-4 min-w-0 truncate text-sm font-semibold text-slate-900">
+                    <h3 className="mt-4 min-w-0 truncate text-sm font-semibold text-slate-900 dark:text-white">
                       {note.title}
                     </h3>
 
-                    <p className="mt-2 min-w-0 break-words line-clamp-3 text-xs leading-5 text-slate-500">
+                    <p className="mt-2 min-w-0 break-words line-clamp-3 text-xs leading-5 text-slate-500 dark:text-slate-400">
                       {note.content}
                     </p>
                   </div>
@@ -209,43 +209,43 @@ const Dashboard = () => {
           <section className="mt-8 grid gap-4 sm:grid-cols-2">
             <a
               href="/knowledge"
-              className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-slate-300 hover:shadow-md"
+              className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-slate-300 hover:shadow-md dark:border-slate-800 dark:bg-slate-900 dark:hover:border-slate-700"
             >
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-700">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300">
                 +
               </div>
 
-              <h3 className="mt-4 text-sm font-semibold text-slate-900">
+              <h3 className="mt-4 text-sm font-semibold text-slate-900 dark:text-white">
                 Add knowledge
               </h3>
 
-              <p className="mt-1 text-sm leading-5 text-slate-500">
+              <p className="mt-1 text-sm leading-5 text-slate-500 dark:text-slate-400">
                 Save a text note or ingest a public URL.
               </p>
 
-              <span className="mt-4 block text-xs font-semibold text-slate-600 group-hover:text-slate-900">
+              <span className="mt-4 block text-xs font-semibold text-slate-600 group-hover:text-slate-900 dark:text-slate-400 dark:group-hover:text-white">
                 Open Knowledge →
               </span>
             </a>
 
             <a
               href="/chat"
-              className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-slate-300 hover:shadow-md"
+              className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-slate-300 hover:shadow-md dark:border-slate-800 dark:bg-slate-900 dark:hover:border-slate-700"
             >
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-950 text-white">
                 ✦
               </div>
 
-              <h3 className="mt-4 text-sm font-semibold text-slate-900">
+              <h3 className="mt-4 text-sm font-semibold text-slate-900 dark:text-white">
                 Ask your Second Brain
               </h3>
 
-              <p className="mt-1 text-sm leading-5 text-slate-500">
+              <p className="mt-1 text-sm leading-5 text-slate-500 dark:text-slate-400">
                 Ask questions and retrieve information from
                 your saved knowledge.
               </p>
 
-              <span className="mt-4 block text-xs font-semibold text-slate-600 group-hover:text-slate-900">
+              <span className="mt-4 block text-xs font-semibold text-slate-600 group-hover:text-slate-900 dark:text-slate-400 dark:group-hover:text-white">
                 Open AI Chat →
               </span>
             </a>

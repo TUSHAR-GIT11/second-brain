@@ -4,7 +4,7 @@ import ChatBox from "../components/ChatBox";
 
 const Chat = () => {
   return (
-    <div className="min-h-screen bg-[#f7f8fa]">
+    <div className="min-h-screen bg-[#f7f8fa] dark:bg-slate-950">
       <Sidebar />
 
       <div className="min-h-screen lg:ml-64">
@@ -16,11 +16,11 @@ const Chat = () => {
               AI Assistant
             </p>
 
-            <h1 className="mt-1 text-3xl font-bold tracking-tight text-slate-900">
+            <h1 className="mt-1 text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
               Ask your Second Brain
             </h1>
 
-            <p className="mt-2 text-sm leading-6 text-slate-500">
+            <p className="mt-2 text-sm leading-6 text-slate-500 dark:text-slate-400">
               Ask questions and get answers grounded in the
               knowledge you have saved.
             </p>

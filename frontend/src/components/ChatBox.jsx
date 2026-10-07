@@ -58,16 +58,16 @@ const ChatBox = () => {
   };
 
   return (
-    <section className="w-full min-w-0 overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
+    <section className="w-full min-w-0 overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
       {/* Header */}
-      <div className="border-b border-slate-200 px-5 py-5 sm:px-6">
+      <div className="border-b border-slate-200 px-5 py-5 sm:px-6 dark:border-slate-800">
         <div className="flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-950 text-sm font-bold text-white">
             ✦
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold text-slate-900">
+            <h3 className="text-sm font-semibold text-slate-900 dark:text-white">
               Second Brain AI
             </h3>
 
@@ -83,19 +83,19 @@ const ChatBox = () => {
       </div>
 
       {/* Messages */}
-      <div className="min-h-[360px] max-h-[560px] min-w-0 space-y-5 overflow-y-auto bg-slate-50/70 p-4 sm:p-6">
+      <div className="min-h-[360px] max-h-[560px] min-w-0 space-y-5 overflow-y-auto bg-slate-50/70 p-4 sm:p-6 dark:bg-slate-950/50">
         {messages.length === 0 && !loading && (
           <div className="flex min-h-[300px] items-center justify-center text-center">
             <div className="max-w-md">
-              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl border border-slate-200 bg-white text-xl shadow-sm">
+              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl border border-slate-200 bg-white text-xl shadow-sm dark:border-slate-800 dark:bg-slate-900">
                 ✦
               </div>
 
-              <h4 className="mt-5 text-base font-semibold text-slate-900">
+              <h4 className="mt-5 text-base font-semibold text-slate-900 dark:text-white">
                 Ask your knowledge base
               </h4>
 
-              <p className="mt-2 text-sm leading-6 text-slate-500">
+              <p className="mt-2 text-sm leading-6 text-slate-500 dark:text-slate-400">
                 Ask questions about the notes and sources you've
                 saved. Answers are generated using your retrieved
                 knowledge.
@@ -111,7 +111,7 @@ const ChatBox = () => {
                     key={suggestion}
                     type="button"
                     onClick={() => setQuery(suggestion)}
-                    className="rounded-full border border-slate-200 bg-white px-3 py-2 text-xs font-medium text-slate-600 transition hover:border-slate-300 hover:bg-slate-50 hover:text-slate-900"
+                    className="rounded-full border border-slate-200 bg-white px-3 py-2 text-xs font-medium text-slate-600 transition hover:border-slate-300 hover:bg-slate-50 hover:text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:border-slate-600 dark:hover:bg-slate-800 dark:hover:text-white"
                   >
                     {suggestion}
                   </button>
@@ -140,7 +140,7 @@ const ChatBox = () => {
                 <div
                   className={`hidden h-8 w-8 shrink-0 items-center justify-center rounded-lg text-xs font-bold sm:flex ${
                     isUser
-                      ? "bg-slate-200 text-slate-600"
+                      ? "bg-slate-200 text-slate-600 dark:bg-slate-800 dark:text-slate-300"
                       : "bg-slate-950 text-white"
                   }`}
                 >
@@ -152,7 +152,7 @@ const ChatBox = () => {
                   className={`min-w-0 rounded-2xl px-4 py-3 text-sm leading-6 ${
                     isUser
                       ? "rounded-tr-md bg-slate-950 text-white"
-                      : "rounded-tl-md border border-slate-200 bg-white text-slate-700 shadow-sm"
+                      : "rounded-tl-md border border-slate-200 bg-white text-slate-700 shadow-sm dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300"
                   }`}
                 >
                   <p className="mb-1 text-[11px] font-semibold uppercase tracking-wide opacity-50">
@@ -164,7 +164,7 @@ const ChatBox = () => {
                       {message.content}
                     </p>
                   ) : (
-                    <div className="break-words [&_ol]:my-2 [&_ol]:list-decimal [&_ol]:pl-5 [&_p]:my-2 [&_p:first-child]:mt-0 [&_p:last-child]:mb-0 [&_ul]:my-2 [&_ul]:list-disc [&_ul]:pl-5 [&_li]:my-1 [&_strong]:font-semibold [&_code]:rounded [&_code]:bg-slate-100 [&_code]:px-1 [&_code]:py-0.5 [&_code]:text-[13px]">
+                    <div className="break-words [&_ol]:my-2 [&_ol]:list-decimal [&_ol]:pl-5 [&_p]:my-2 [&_p:first-child]:mt-0 [&_p:last-child]:mb-0 [&_ul]:my-2 [&_ul]:list-disc [&_ul]:pl-5 [&_li]:my-1 [&_strong]:font-semibold [&_code]:rounded [&_code]:bg-slate-100 [&_code]:px-1 [&_code]:py-0.5 [&_code]:text-[13px] dark:[&_code]:bg-slate-800">
                       <ReactMarkdown>
                         {message.content}
                       </ReactMarkdown>
@@ -184,7 +184,7 @@ const ChatBox = () => {
                 ✦
               </div>
 
-              <div className="rounded-2xl rounded-tl-md border border-slate-200 bg-white px-4 py-3 shadow-sm">
+              <div className="rounded-2xl rounded-tl-md border border-slate-200 bg-white px-4 py-3 shadow-sm dark:border-slate-800 dark:bg-slate-900">
                 <div className="flex items-center gap-1.5">
                   <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-slate-400" />
 
@@ -200,7 +200,7 @@ const ChatBox = () => {
 
       {/* Error */}
       {error && (
-        <div className="border-t border-red-100 bg-red-50 px-5 py-3 text-sm text-red-700">
+        <div className="border-t border-red-100 bg-red-50 px-5 py-3 text-sm text-red-700 dark:border-red-900/50 dark:bg-red-950/40 dark:text-red-300">
           {error}
         </div>
       )}
@@ -208,16 +208,16 @@ const ChatBox = () => {
       {/* Input */}
       <form
         onSubmit={handleSubmit}
-        className="border-t border-slate-200 bg-white p-4 sm:p-5"
+        className="border-t border-slate-200 bg-white p-4 sm:p-5 dark:border-slate-800 dark:bg-slate-900"
       >
-        <div className="flex items-end gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-2 transition focus-within:border-slate-300 focus-within:bg-white focus-within:ring-4 focus-within:ring-slate-100">
+        <div className="flex items-end gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-2 transition focus-within:border-slate-300 focus-within:bg-white focus-within:ring-4 focus-within:ring-slate-100 dark:border-slate-700 dark:bg-slate-800 dark:focus-within:border-slate-600 dark:focus-within:bg-slate-800 dark:focus-within:ring-slate-900">
           <input
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Ask something from your knowledge..."
             disabled={loading}
-            className="min-w-0 flex-1 bg-transparent px-3 py-2.5 text-sm outline-none placeholder:text-slate-400 disabled:cursor-not-allowed"
+            className="min-w-0 flex-1 bg-transparent px-3 py-2.5 text-sm text-slate-900 outline-none placeholder:text-slate-400 disabled:cursor-not-allowed dark:text-white dark:placeholder:text-slate-500"
           />
 
           <button

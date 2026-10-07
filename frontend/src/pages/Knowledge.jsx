@@ -81,7 +81,7 @@ const Knowledge = () => {
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#f7f8fa] lg:flex-row">
+    <div className="flex min-h-screen flex-col bg-[#f7f8fa] dark:bg-slate-950 lg:flex-row">
       <Sidebar />
 
       <div className="min-w-0 flex-1">
@@ -95,17 +95,17 @@ const Knowledge = () => {
 
             <div className="mt-1 flex items-end justify-between gap-4">
               <div>
-                <h1 className="text-3xl font-bold tracking-tight text-slate-900">
+                <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
                   Knowledge
                 </h1>
 
-                <p className="mt-2 text-sm text-slate-500">
+                <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
                   Manage the knowledge your Second Brain uses
                   for retrieval.
                 </p>
               </div>
 
-              <div className="rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-600">
+              <div className="rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300">
                 {notes.length}{" "}
                 {notes.length === 1 ? "item" : "items"}
               </div>
@@ -113,7 +113,7 @@ const Knowledge = () => {
           </div>
 
           {error && (
-            <div className="mb-6 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+            <div className="mb-6 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 dark:border-red-900/50 dark:bg-red-950/40 dark:text-red-300">
               {error}
             </div>
           )}
@@ -125,23 +125,23 @@ const Knowledge = () => {
                   {[1, 2, 3, 4].map((item) => (
                     <div
                       key={item}
-                      className="h-52 animate-pulse rounded-2xl border border-slate-200 bg-white"
+                      className="h-52 animate-pulse rounded-2xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900"
                     />
                   ))}
                 </div>
               )}
 
               {!loading && notes.length === 0 && (
-                <div className="rounded-2xl border border-dashed border-slate-300 bg-white px-6 py-16 text-center">
-                  <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 text-xl">
+                <div className="rounded-2xl border border-dashed border-slate-300 bg-white px-6 py-16 text-center dark:border-slate-700 dark:bg-slate-900">
+                  <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 text-xl dark:bg-slate-800">
                     ✦
                   </div>
 
-                  <h2 className="mt-5 font-semibold text-slate-900">
+                  <h2 className="mt-5 font-semibold text-slate-900 dark:text-white">
                     No knowledge yet
                   </h2>
 
-                  <p className="mx-auto mt-2 max-w-sm text-sm leading-6 text-slate-500">
+                  <p className="mx-auto mt-2 max-w-sm text-sm leading-6 text-slate-500 dark:text-slate-400">
                     Add your first text note or public URL to
                     start building your Second Brain.
                   </p>
@@ -163,7 +163,7 @@ const Knowledge = () => {
             </section>
 
             <aside className="min-w-0">
-              <div className="sticky top-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+              <div className="sticky top-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
                 <NoteForm
                   onNoteCreated={handleNoteCreated}
                   editingNote={editingNote}
