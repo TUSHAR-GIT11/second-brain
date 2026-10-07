@@ -33,13 +33,13 @@ const Dashboard = () => {
   const recentNotes = notes.slice(0, 4);
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#f7f8fa] lg:flex-row">
+    <div className="flex min-h-screen w-full max-w-full flex-col overflow-x-hidden bg-[#f7f8fa] lg:flex-row">
       <Sidebar />
 
       <div className="min-w-0 flex-1">
         <Header />
 
-        <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <main className="mx-auto w-full max-w-7xl min-w-0 px-4 py-8 sm:px-6 lg:px-8">
           {/* Header */}
           <section className="mb-8">
             <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">
@@ -175,9 +175,9 @@ const Dashboard = () => {
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                 {recentNotes.map((note) => (
                   <div
-                    key={note._id}
-                    className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
-                  >
+  key={note._id}
+  className="min-w-0 overflow-hidden rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
+>
                     <div className="flex items-center justify-between gap-3">
                       <span className="rounded-full bg-slate-100 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-slate-600">
                         {note.sourceType === "url"
@@ -190,11 +190,11 @@ const Dashboard = () => {
                       </span>
                     </div>
 
-                    <h3 className="mt-4 truncate text-sm font-semibold text-slate-900">
+                    <h3 className="mt-4 min-w-0 truncate text-sm font-semibold text-slate-900">
                       {note.title}
                     </h3>
 
-                    <p className="mt-2 line-clamp-3 text-xs leading-5 text-slate-500">
+                    <p className="mt-2 min-w-0 break-words line-clamp-3 text-xs leading-5 text-slate-500">
                       {note.content}
                     </p>
                   </div>
