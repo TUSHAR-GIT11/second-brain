@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
-import {
-  getNotes,
-} from "../services/noteService";
+import { getNotes } from "../services/noteService";
 
 const Dashboard = () => {
   const [notes, setNotes] = useState([]);
@@ -33,13 +31,13 @@ const Dashboard = () => {
   const recentNotes = notes.slice(0, 4);
 
   return (
-    <div className="flex min-h-screen w-full max-w-full flex-col overflow-x-hidden bg-[#f7f8fa] lg:flex-row">
-      <Sidebar />
+    <div className="flex min-h-screen flex-col bg-[#f7f8fa] lg:flex-row">
+  <Sidebar />
 
-      <div className="min-w-0 flex-1">
+  <div className="min-w-0 flex-1">
         <Header />
 
-        <main className="mx-auto w-full max-w-7xl min-w-0 px-4 py-8 sm:px-6 lg:px-8">
+        <main className="mx-auto w-full min-w-0 max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
           {/* Header */}
           <section className="mb-8">
             <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">
@@ -56,6 +54,7 @@ const Dashboard = () => {
             </p>
           </section>
 
+          {/* Error */}
           {error && (
             <div className="mb-6 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
               {error}
@@ -117,8 +116,8 @@ const Dashboard = () => {
 
           {/* Recent Knowledge */}
           <section className="mt-8">
-            <div className="mb-5 flex items-end justify-between">
-              <div>
+            <div className="mb-5 flex items-end justify-between gap-4">
+              <div className="min-w-0">
                 <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">
                   Recent
                 </p>
@@ -130,12 +129,13 @@ const Dashboard = () => {
 
               <a
                 href="/knowledge"
-                className="text-sm font-medium text-slate-600 transition hover:text-slate-900"
+                className="shrink-0 text-sm font-medium text-slate-600 transition hover:text-slate-900"
               >
                 View all →
               </a>
             </div>
 
+            {/* Loading */}
             {loading && (
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                 {[1, 2, 3, 4].map((item) => (
@@ -147,6 +147,7 @@ const Dashboard = () => {
               </div>
             )}
 
+            {/* Empty State */}
             {!loading && recentNotes.length === 0 && (
               <div className="rounded-2xl border border-dashed border-slate-300 bg-white px-6 py-14 text-center">
                 <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-slate-100 text-lg">
@@ -171,21 +172,22 @@ const Dashboard = () => {
               </div>
             )}
 
+            {/* Recent Notes */}
             {!loading && recentNotes.length > 0 && (
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                 {recentNotes.map((note) => (
                   <div
-  key={note._id}
-  className="min-w-0 overflow-hidden rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
->
-                    <div className="flex items-center justify-between gap-3">
-                      <span className="rounded-full bg-slate-100 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-slate-600">
+                    key={note._id}
+                    className="min-w-0 overflow-hidden rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
+                  >
+                    <div className="flex min-w-0 items-center justify-between gap-3">
+                      <span className="min-w-0 truncate rounded-full bg-slate-100 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-slate-600">
                         {note.sourceType === "url"
                           ? "Public URL"
                           : "Text Note"}
                       </span>
 
-                      <span className="text-slate-300">
+                      <span className="shrink-0 text-slate-300">
                         •••
                       </span>
                     </div>
