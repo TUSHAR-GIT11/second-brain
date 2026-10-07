@@ -3,7 +3,11 @@ const Chunk = require("../models/Chunk");
 const generateEmbedding = require("./embeddingService");
 
 const retrieveChunks = async (query, userId, limit = 5) => {
+  console.log("1. Generating query embedding...");
+
   const queryEmbedding = await generateEmbedding(query);
+
+  console.log("2. Query embedding generated");
 
   const results = await Chunk.aggregate([
     {
@@ -30,7 +34,25 @@ const retrieveChunks = async (query, userId, limit = 5) => {
     },
   ]);
 
-  return results;
+  console.log("3. Vector search completed");
+
+  console.log(
+    "Scores:",
+    results.map((result) => result.score)
+  );
+
+  const MINIMUM_SCORE = 0.70;
+
+  const filteredResults = results.filter(
+    (result) => result.score >= MINIMUM_SCORE
+  );
+
+  console.log(
+    "4. Results after threshold:",
+    filteredResults.length
+  );
+
+  return filteredResults;
 };
 
 module.exports = retrieveChunks;

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import ReactMarkdown from "react-markdown";
 import api from "../services/api";
 
 const ChatBox = () => {
@@ -72,6 +73,7 @@ const ChatBox = () => {
 
             <div className="mt-0.5 flex items-center gap-1.5">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+
               <span className="text-xs text-slate-400">
                 Grounded in your knowledge
               </span>
@@ -130,10 +132,11 @@ const ChatBox = () => {
               }`}
             >
               <div
-  className={`flex min-w-0 max-w-[95%] gap-3 sm:max-w-[78%] ${
+                className={`flex min-w-0 max-w-[95%] gap-3 sm:max-w-[78%] ${
                   isUser ? "flex-row-reverse" : ""
                 }`}
               >
+                {/* Avatar */}
                 <div
                   className={`hidden h-8 w-8 shrink-0 items-center justify-center rounded-lg text-xs font-bold sm:flex ${
                     isUser
@@ -144,8 +147,9 @@ const ChatBox = () => {
                   {isUser ? "Y" : "✦"}
                 </div>
 
+                {/* Message */}
                 <div
-                  className={`rounded-2xl px-4 py-3 text-sm leading-6 ${
+                  className={`min-w-0 rounded-2xl px-4 py-3 text-sm leading-6 ${
                     isUser
                       ? "rounded-tr-md bg-slate-950 text-white"
                       : "rounded-tl-md border border-slate-200 bg-white text-slate-700 shadow-sm"
@@ -155,15 +159,24 @@ const ChatBox = () => {
                     {isUser ? "You" : "Second Brain"}
                   </p>
 
-                  <p className="whitespace-pre-wrap">
-                    {message.content}
-                  </p>
+                  {isUser ? (
+                    <p className="whitespace-pre-wrap break-words">
+                      {message.content}
+                    </p>
+                  ) : (
+                    <div className="break-words [&_ol]:my-2 [&_ol]:list-decimal [&_ol]:pl-5 [&_p]:my-2 [&_p:first-child]:mt-0 [&_p:last-child]:mb-0 [&_ul]:my-2 [&_ul]:list-disc [&_ul]:pl-5 [&_li]:my-1 [&_strong]:font-semibold [&_code]:rounded [&_code]:bg-slate-100 [&_code]:px-1 [&_code]:py-0.5 [&_code]:text-[13px]">
+                      <ReactMarkdown>
+                        {message.content}
+                      </ReactMarkdown>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
           );
         })}
 
+        {/* Loading */}
         {loading && (
           <div className="flex justify-start">
             <div className="flex max-w-[78%] gap-3">
@@ -174,7 +187,9 @@ const ChatBox = () => {
               <div className="rounded-2xl rounded-tl-md border border-slate-200 bg-white px-4 py-3 shadow-sm">
                 <div className="flex items-center gap-1.5">
                   <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-slate-400" />
+
                   <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-slate-400 [animation-delay:150ms]" />
+
                   <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-slate-400 [animation-delay:300ms]" />
                 </div>
               </div>

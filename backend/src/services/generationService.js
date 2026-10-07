@@ -1,52 +1,50 @@
-const { GoogleGenAI } = require("@google/genai");
+const Groq = require("groq-sdk");
 
-const ai = new GoogleGenAI({
-  apiKey: process.env.GEMINI_API_KEY,
+const groq = new Groq({
+  apiKey: process.env.GROQ_API_KEY,
 });
 
 const generateAnswer = async (question, context) => {
   const prompt = `
 You are a knowledge-base assistant.
 
-Answer the user's question ONLY using the context provided below.
+Your task is to answer the user's question strictly and completely using ONLY the provided context.
 
-If the answer cannot be found in the context, say:
+IMPORTANT RULES:
+
+1. Use only information explicitly present in the context.
+2. Never use outside knowledge.
+3. Never invent, assume, or add information.
+4. If the question asks for multiple items, methods, steps, features, or examples, include ALL relevant items supported by the context.
+5. Do not omit relevant items from the context.
+6. If the same information appears multiple times, do not unnecessarily repeat it.
+7. Keep the answer concise and directly answer the question.
+8. Preserve technical names, method names, function names, and terminology exactly as they appear in the context.
+9. If the answer cannot be found in the context, respond exactly with:
 "I don't know based on your knowledge base."
-
-Do not use outside knowledge.
-Do not make up information.
 
 Context:
 ${context}
 
-Question:
+User Question:
 ${question}
+
+Answer:
 `;
 
-  const maxRetries = 2;
+  const response = await groq.chat.completions.create({
+    model: "openai/gpt-oss-20b",
+    messages: [
+      {
+        role: "user",
+        content: prompt,
+      },
+    ],
+    temperature: 0,
+    max_tokens: 500,
+  });
 
-  for (let attempt = 0; attempt <= maxRetries; attempt++) {
-    try {
-      const response = await ai.models.generateContent({
-        model: "gemini-3.8-flash",
-        contents: prompt,
-      });
-
-      return response.text;
-    } catch (error) {
-      if (error.status !== 503 || attempt === maxRetries) {
-        throw error;
-      }
-
-      const delay = 2000 * (attempt + 1);
-
-      console.log(
-        `Gemini temporarily unavailable. Retrying in ${delay / 1000}s...`
-      );
-
-      await new Promise((resolve) => setTimeout(resolve, delay));
-    }
-  }
+  return response.choices[0].message.content;
 };
 
 module.exports = generateAnswer;
